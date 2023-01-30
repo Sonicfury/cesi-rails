@@ -1,13 +1,10 @@
-FROM ruby:alpine3.17
+FROM ruby:slim
 
-RUN mkdir -p /var/www/api
-WORKDIR /var/www/api
+WORKDIR /app
 
-RUN apk update \
-    && apk upgrade \
-    && apk add build-base vim curl \
-    && gem install rails
+RUN apt-get update -qq \
+    && apt-get install -y build-essential libpq-dev nodejs git
+RUN gem install rails
 
-EXPOSE 3000
-
-ENTRYPOINT ["rails", "server", "-b", "0.0.0.0"]
+ENTRYPOINT ["tail", "-f", "/dev/null"]
+# ENTRYPOINT ["rails", "server", "-b", "0.0.0.0"]
