@@ -1,0 +1,13 @@
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: postgres
+  web:
+    build: .
+    volumes:
+      - .:/var/www/api
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
